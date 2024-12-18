@@ -1,0 +1,21 @@
+<h2><a href="/">Inicio</a></h2>
+    <table>
+        <tr>
+            <th>Usuario</th>
+            <th>Destino</th>
+            <th>Texto</th>
+            <th>Fecha</th>
+        </tr>
+        {% for p in publicaciones %}
+        <tr>
+            <td>{{p.usuario}}</td>
+            <td>{{p.destino}}</td>
+            <td>{{p.texto}}</td>
+            <td>{{p.fecha}} </td>
+            <td>  
+                <a href="{}">Actualizar</a>
+                <a href="{}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
