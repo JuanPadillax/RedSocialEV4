@@ -6,7 +6,7 @@
             <th>Texto</th>
             <th>Fecha</th>
         </tr>
-        {% for p in publicaciones %}
+        {% for p in publi %}
         <tr>
             <td>{{p.usuario}}</td>
             <td>{{p.destino}}</td>
@@ -19,3 +19,5 @@
         </tr>
         {% endfor %}
     </table>
+
+    <a href="/crear_publicacion">Publicar algo</a>
