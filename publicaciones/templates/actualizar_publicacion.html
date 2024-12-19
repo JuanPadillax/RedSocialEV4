@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Actualizar Publicación</title>
+</head>
+<body>
+    <h2>Actualizar Publicación</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <!-- Selección de destino -->
+        <label for="destino">Selecciona un destino:</label>
+        <select name="destino" id="destino" required>
+            {% for destino in destinos %}
+                <option value="{{ destino.id }}" {% if destino.id == publicacion.destino.id %}selected{% endif %}>
+                    {{ destino.ciudad }}, {{ destino.pais }}
+                </option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <!-- Edición de texto -->
+        <label for="texto">Texto:</label>
+        <textarea name="texto" id="texto" required>{{ publicacion.texto }}</textarea>
+        <br>
+
+        <button type="submit">Actualizar</button>
+    </form>
+    <a href="{% url 'listar_publicaciones' %}">Volver a la lista de publicaciones</a>
+</body>
+</html>

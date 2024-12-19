@@ -8,20 +8,22 @@
     <h2>Crear Publicación</h2>
     <form method="POST">
         {% csrf_token %}
+        <!-- Selección de destino -->
         <label for="destino">Selecciona un destino:</label>
-        <select name="destino" id="destino">
+        <select name="destino" id="destino" required>
             {% for destino in destinos %}
                 <option value="{{ destino.id }}">{{ destino.ciudad }}, {{ destino.pais }}</option>
             {% endfor %}
         </select>
         <br>
+
+        <!-- Campo de texto -->
         <label for="texto">Texto:</label>
         <textarea name="texto" id="texto" required></textarea>
         <br>
-        <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" name="fecha" required>
-        <br>
-        <button type="submit">Crear Publicación</button>
+
+        <!-- Botón para enviar el formulario -->
+        <button type="submit">Publicar</button>
     </form>
 </body>
 </html>
