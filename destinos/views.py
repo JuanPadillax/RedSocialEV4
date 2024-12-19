@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Destino
 from django.contrib.auth.decorators import login_required
 
@@ -9,9 +9,13 @@ def crear_destino(request):
         ciudad = request.POST.get('ciudad')
         descripcion = request.POST.get('descripcion')
 
-        Destino.objects.create(pais=pais, ciudad=ciudad,
-                               descripcion=descripcion)
+        if not pais or not ciudad or not descripcion:
+            return render(request, 'crear_destino.html', {'error': 'Todos los campos son obligatorios.'})
+
+        destino = Destino(pais=pais, ciudad=ciudad, descripcion=descripcion)
+        destino.save()
         return redirect('listar_destinos')
+
     return render(request, 'crear_destino.html')
 
 
@@ -23,19 +27,27 @@ def listar_destinos(request):
 
 @login_required
 def actualizar_destino(request, id):
-    destino = Destino.objects.get(id=id)
+    destino = get_object_or_404(Destino, id=id)
     if request.method == 'POST':
-        destino.pais = request.POST.get('pais')
-        destino.ciudad = request.POST.get('ciudad')
-        destino.descripcion = request.POST.get('descripcion')
+        pais = request.POST.get('pais')
+        ciudad = request.POST.get('ciudad')
+        descripcion = request.POST.get('descripcion')
+
+        if not pais or not ciudad or not descripcion:
+            return render(request, 'actualizar_destino.html', {'destino': destino, 'error': 'Todos los campos son obligatorios.'})
+
+        destino.pais = pais
+        destino.ciudad = ciudad
+        destino.descripcion = descripcion
         destino.save()
         return redirect('listar_destinos')
+
     return render(request, 'actualizar_destino.html', {'destino': destino})
 
 
 @login_required
 def eliminar_destino(request, id):
-    destino = Destino.objects.get(id=id)
+    destino = get_object_or_404(Destino, id=id)
     if request.method == 'POST':
         destino.delete()
         return redirect('listar_destinos')

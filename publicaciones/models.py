@@ -1,10 +1,16 @@
 from django.db import models
 from destinos.models import Destino
-from usuarios.models import Usuario
+from django.contrib.auth.models import User
+from django.utils.timezone import now
 
 
 class Publicacion(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    destino = models.ForeignKey(Destino, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(
+        User, on_delete=models.CASCADE)  # Relación con User
+    destino = models.ForeignKey(
+        Destino, on_delete=models.CASCADE)  # Relación con Destino
     texto = models.TextField()
-    fecha = models.DateTimeField(auto_now_add=True)
+    fecha = models.DateField(default=now)
+
+    def __str__(self):
+        return f"{self.usuario} - {self.texto[:20]}"

@@ -1,23 +1,28 @@
-<h2><a href="/">Inicio</a></h2>
-    <table>
-        <tr>
-            <th>Usuario</th>
-            <th>Destino</th>
-            <th>Texto</th>
-            <th>Fecha</th>
-        </tr>
-        {% for p in publi %}
-        <tr>
-            <td>{{p.usuario}}</td>
-            <td>{{p.destino}}</td>
-            <td>{{p.texto}}</td>
-            <td>{{p.fecha}} </td>
-            <td>  
-                <a href="{}">Actualizar</a>
-                <a href="{}">Eliminar</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+<table>
+    <tr>
+        <th>Usuario</th>
+        <th>Destino</th>
+        <th>Texto</th>
+        <th>Fecha</th>
+    </tr>
+    {% for p in publi %}
+    <tr>
+        <td>{{ p.usuario.username }}</td>
+        <td>{{ p.destino.ciudad }}, {{ p.destino.pais }}</td>
+        <td>{{ p.texto }}</td>
+        <td>{{ p.fecha }}</td>
+        <td>  
+            <a href="{% url 'actualizar_publicacion' p.id %}">Actualizar</a>
+            <a href="{% url 'eliminar_publicacion' p.id %}">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 
-    <a href="/crear_publicacion">Publicar algo</a>
+<a href="{% url 'crear_publicacion' %}">Publicar algo</a>
+<a href="{% url 'listar_destinos' %}">Ver destinos</a>
+<a href="{% url 'login' %}">Cerrar Sesión</a>
+
+{% if user.is_authenticated and user.is_staff %}
+    <a href="{% url 'listar_usuarios' %}">Listar Usuarios</a>
+{% endif %}
