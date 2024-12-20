@@ -41,6 +41,8 @@ Ejemplos de uso de la API
 
 
 Asi se ve el dato en la API
+
+
 ![image](https://github.com/user-attachments/assets/27d67961-856d-4c32-a792-5b837eb431ed)
 
 Y asi se ve el funcionamiento en el sistema
