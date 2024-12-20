@@ -40,9 +40,10 @@ Ejemplos de uso de la API
 
 
 
-
+Asi se ve el dato en la API
 ![image](https://github.com/user-attachments/assets/27d67961-856d-4c32-a792-5b837eb431ed)
 
+Y asi se ve el funcionamiento en el sistema
 
 ![image](https://github.com/user-attachments/assets/6a1e7263-7b37-457a-b512-3232c571365a)
 
