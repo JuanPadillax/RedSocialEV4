@@ -37,7 +37,11 @@ texto: Descripción de la experiencia
 fecha: Fecha de publicación de la experiencia
 
 Ejemplos de uso de la API
-![image](https://github.com/user-attachments/assets/96fa1c21-852a-4f44-95f9-3286c522cce7)
+![image](https://github.com/user-attachments/assets/27d67961-856d-4c32-a792-5b837eb431ed)
+
+
+![image](https://github.com/user-attachments/assets/6a1e7263-7b37-457a-b512-3232c571365a)
+
 
 
 
