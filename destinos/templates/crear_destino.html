@@ -3,22 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Destino</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+        }
+        .form-container {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: none;
+            height: 100px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h2>Crear Destino</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <label for="pais">País:</label>
-        <input type="text" id="pais" name="pais" required><br>
+    <div class="form-container">
+        <h2>Crear Destino</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="pais">País:</label>
+            <input type="text" id="pais" name="pais" placeholder="Ingresa el país" required>
 
-        <label for="ciudad">Ciudad:</label>
-        <input type="text" id="ciudad" name="ciudad" required><br>
+            <label for="ciudad">Ciudad:</label>
+            <input type="text" id="ciudad" name="ciudad" placeholder="Ingresa la ciudad" required>
 
-        <label for="descripcion">Descripción:</label>
-        <textarea id="descripcion" name="descripcion" required></textarea><br>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" placeholder="Escribe una descripción del destino" required></textarea>
 
-        <button type="submit">Crear</button>
-    </form>
-    <a href="{% url 'listar_destinos' %}">Volver a la lista de destinos</a>
+            <button type="submit">Crear</button>
+        </form>
+        <a href="{% url 'listar_destinos' %}">Volver a la lista de destinos</a>
+    </div>
 </body>
 </html>

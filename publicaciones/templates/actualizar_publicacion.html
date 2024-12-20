@@ -3,29 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <title>Actualizar Publicación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h2>Actualizar Publicación</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <!-- Selección de destino -->
-        <label for="destino">Selecciona un destino:</label>
-        <select name="destino" id="destino" required>
-            {% for destino in destinos %}
-                <option value="{{ destino.id }}" {% if destino.id == publicacion.destino.id %}selected{% endif %}>
-                    {{ destino.ciudad }}, {{ destino.pais }}
-                </option>
-            {% endfor %}
-        </select>
-        <br>
+    <div class="form-container">
+        <h1>Actualizar Publicación</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" name="usuario" value="{{ publicacion.usuario.username }}" disabled>
 
-        <!-- Edición de texto -->
-        <label for="texto">Texto:</label>
-        <textarea name="texto" id="texto" required>{{ publicacion.texto }}</textarea>
-        <br>
+            <label for="destino">Selecciona un destino:</label>
+            <select name="destino" id="destino" required>
+                {% for destino in destinos %}
+                    <option value="{{ destino.id }}" {% if destino.id == publicacion.destino.id %}selected{% endif %}>
+                        {{ destino.ciudad }}, {{ destino.pais }}
+                    </option>
+                {% endfor %}
+            </select>
 
-        <button type="submit">Actualizar</button>
-    </form>
-    <a href="{% url 'listar_publicaciones' %}">Volver a la lista de publicaciones</a>
+            <label for="texto">Texto:</label>
+            <textarea name="texto" id="texto" rows="5" required>{{ publicacion.texto }}</textarea>
+
+            <button type="submit">Actualizar Publicación</button>
+        </form>
+        <a href="{% url 'listar_publicaciones' %}">Volver a la lista</a>
+    </div>
 </body>
 </html>

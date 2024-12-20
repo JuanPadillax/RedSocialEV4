@@ -1,3 +1,5 @@
+from rest_framework import generics, permissions
+from .serializers import DestinoSerializer
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Destino
 from django.contrib.auth.decorators import login_required
@@ -52,3 +54,15 @@ def eliminar_destino(request, id):
         destino.delete()
         return redirect('listar_destinos')
     return render(request, 'eliminar_destino.html', {'destino': destino})
+
+
+class DestinoListCreateView(generics.ListCreateAPIView):
+    queryset = Destino.objects.all()
+    serializer_class = DestinoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class DestinoDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Destino.objects.all()
+    serializer_class = DestinoSerializer
+    permission_classes = [permissions.IsAuthenticated]

@@ -3,14 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>Eliminar Publicación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+        h2 {
+            color: #d9534f; /* Color rojo para destacar */
+        }
+        p {
+            font-size: 16px;
+            color: #333;
+        }
+        button {
+            background-color: #d9534f; /* Color rojo para el botón de eliminar */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #c9302c;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #f4f4f4;
+        }
+    </style>
 </head>
 <body>
-    <h2>¿Estás seguro de que deseas eliminar esta publicación?</h2>
-    <p>{{ publicacion.texto }}</p>
-    <form method="POST">
-        {% csrf_token %}
-        <button type="submit">Eliminar</button>
-    </form>
-    <a href="{% url 'listar_publicaciones' %}">Cancelar</a>
+    <div class="container">
+        <h2>¿Estás seguro de que deseas eliminar esta publicación?</h2>
+        <p><strong>Texto:</strong> {{ publicacion.texto }}</p>
+        <p><strong>Usuario:</strong> {{ publicacion.usuario.username }}</p>
+        <p><strong>Destino:</strong> {{ publicacion.destino.ciudad }}, {{ publicacion.destino.pais }}</p>
+        <p><strong>Fecha:</strong> {{ publicacion.fecha }}</p>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Eliminar</button>
+            <a href="{% url 'listar_publicaciones' %}">Cancelar</a>
+        </form>
+    </div>
 </body>
 </html>

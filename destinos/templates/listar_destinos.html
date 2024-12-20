@@ -3,9 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Destinos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .actions a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .actions a:hover {
+            text-decoration: underline;
+        }
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .button-container a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button-container a:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <h2>Destinos Registrados</h2>
+
     <table>
         <thead>
             <tr>
@@ -21,7 +75,7 @@
                 <td>{{ destino.ciudad }}</td>
                 <td>{{ destino.pais }}</td>
                 <td>{{ destino.descripcion }}</td>
-                <td>
+                <td class="actions">
                     <a href="{% url 'actualizar_destino' destino.id %}">Editar</a>
                     <a href="{% url 'eliminar_destino' destino.id %}">Eliminar</a>
                 </td>
@@ -29,7 +83,10 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href="{% url 'crear_destino' %}">Crear Destino</a>
-    <a href="{% url 'listar_publicaciones' %}">Volver</a>
+
+    <div class="button-container">
+        <a href="{% url 'crear_destino' %}">Crear Destino</a>
+        <a href="{% url 'listar_publicaciones' %}">Volver</a>
+    </div>
 </body>
 </html>

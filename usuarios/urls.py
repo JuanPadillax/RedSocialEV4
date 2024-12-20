@@ -1,8 +1,9 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from usuarios.views import crear_usuario, listar_usuarios, actualizar_usuario, eliminar_usuario
+from usuarios.views import crear_usuario, listar_usuarios, actualizar_usuario, eliminar_usuario, UserListView
 
 urlpatterns = [
+    path('api/usuarios/', UserListView.as_view(), name='usuarios'),
     path('', auth_views.LoginView.as_view(
         template_name='login.html'), name='login'),
     path('listar_usuarios/', listar_usuarios, name='listar_usuarios'),

@@ -28,7 +28,15 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -40,6 +48,7 @@ INSTALLED_APPS = [
     'destinos',
     'publicaciones',
     'usuarios',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
