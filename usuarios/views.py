@@ -25,7 +25,7 @@ def crear_usuario(request):
             user = User.objects.create_user(
                 username=username, email=email, password=password)
             login(request, user)
-            return redirect('listar_usuarios')
+            return redirect('listar_publicaciones')
         except IntegrityError:
             return render(request, 'crear_usuario.html', {'error': 'El nombre de usuario ya está en uso.'})
 

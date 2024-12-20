@@ -78,6 +78,7 @@
         <tbody id="publicaciones-table-body">
         </tbody>
     </table>
+    {% csrf_token %}
 
     <div class="button-container">
         <a href="{% url 'crear_publicacion' %}">Publicar algo</a>
