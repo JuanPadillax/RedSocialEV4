@@ -9,6 +9,8 @@ Abrimos una terminal y usamos la siguiente linea de comando
 pip install django
 Con este comando se nos instala django para poder usar sus funcionalidades
 
+pip install djangorestframework
+
 Luego de que se instale , seguimos las siguientes lineas de comando
 git clone https://github.com/JuanPadillax/RedSocialEV4.git
 
