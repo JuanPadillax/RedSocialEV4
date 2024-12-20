@@ -3,17 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Eliminar Destino</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #d9534f; /* Color rojo para destacar */
+        }
+        p {
+            font-size: 16px;
+            color: #333;
+        }
+        button {
+            background-color: #d9534f; /* Botón rojo */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #c9302c;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
+        a:hover {
+            background-color: #f4f4f4;
+        }
+    </style>
 </head>
 <body>
-    <h2>Eliminar Destino</h2>
-    <p>¿Estás seguro de que deseas eliminar el destino "{{ destino.ciudad }}, {{ destino.pais }}"?</p>
-    <form method="POST">
-        {% csrf_token %}
-        <button type="submit">Eliminar</button>
-    </form>
-    <a href="{% url 'listar_destinos' %}">Cancelar</a>
+    <div class="container">
+        <h2>Eliminar Destino</h2>
+        <p>¿Estás seguro de que deseas eliminar el destino <strong>"{{ destino.ciudad }}, {{ destino.pais }}"</strong>?</p>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Eliminar</button>
+            <a href="{% url 'listar_destinos' %}">Cancelar</a>
+        </form>
+    </div>
 </body>
 </html>
-
-
-

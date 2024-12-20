@@ -1,28 +1,154 @@
-<table>
-    <tr>
-        <th>Usuario</th>
-        <th>Destino</th>
-        <th>Texto</th>
-        <th>Fecha</th>
-    </tr>
-    {% for p in publi %}
-    <tr>
-        <td>{{ p.usuario.username }}</td>
-        <td>{{ p.destino.ciudad }}, {{ p.destino.pais }}</td>
-        <td>{{ p.texto }}</td>
-        <td>{{ p.fecha }}</td>
-        <td>  
-            <a href="{% url 'actualizar_publicacion' p.id %}">Actualizar</a>
-            <a href="{% url 'eliminar_publicacion' p.id %}">Eliminar</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Publicaciones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .actions a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .controls a {
+            text-decoration: none;
+            margin-right: 10px;
+            color: #007BFF;
+        }
+        .controls a:hover {
+            text-decoration: underline;
+        }
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .button-container a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button-container a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Publicaciones</h1>
 
-<a href="{% url 'crear_publicacion' %}">Publicar algo</a>
-<a href="{% url 'listar_destinos' %}">Ver destinos</a>
-<a href="{% url 'login' %}">Cerrar Sesión</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Destino</th>
+                <th>Texto</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="publicaciones-table-body">
+        </tbody>
+    </table>
 
-{% if user.is_authenticated and user.is_staff %}
-    <a href="{% url 'listar_usuarios' %}">Listar Usuarios</a>
-{% endif %}
+    <div class="button-container">
+        <a href="{% url 'crear_publicacion' %}">Publicar algo</a>
+        <a href="{% url 'listar_destinos' %}">Ver destinos</a>
+        <a href="{% url 'login' %}">Cerrar Sesión</a>
+
+        {% if user.is_authenticated and user.is_superuser %}
+            <a href="{% url 'listar_usuarios' %}">Listar Usuarios</a>
+        {% endif %}
+    </div>
+
+    <div class="controls">
+        <button id="prev-page" disabled>Anterior</button>
+        <span id="current-page">Página: 1</span>
+        <button id="next-page" disabled>Siguiente</button>
+    </div>
+
+    <script>
+        const API_URL = '/api/publicaciones/';
+        let currentPage = 1;
+
+        async function fetchPublicaciones(page = 1) {
+            try {
+                const response = await fetch(`${API_URL}?page=${page}`);
+                if (!response.ok) throw new Error('Error al obtener los datos de la API.');
+
+                const data = await response.json();
+                renderPublicaciones(data.results);
+                updatePaginationControls(data.previous, data.next);
+                document.getElementById('current-page').textContent = `Página: ${page}`;
+                currentPage = page;
+            } catch (error) {
+                console.error(error);
+                alert('Error al cargar las publicaciones.');
+            }
+        }
+
+        function renderPublicaciones(publicaciones) {
+            const tableBody = document.getElementById('publicaciones-table-body');
+            tableBody.innerHTML = '';
+
+            publicaciones.forEach(pub => {
+                const row = `
+                    <tr>
+                        <td>${pub.usuario}</td>
+                        <td>${pub.destino}</td>
+                        <td>${pub.texto}</td>
+                        <td>${pub.fecha}</td>
+                        <td>
+                            <div class='actions'>
+                            <a href="/actualizar_publicacion/${pub.id}">Actualizar</a>
+                            <a href="/eliminar_publicacion/${pub.id}">Eliminar</a>
+                            <div/>
+                        </td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('beforeend', row);
+            });
+        }
+
+        function updatePaginationControls(previous, next) {
+            document.getElementById('prev-page').disabled = !previous;
+            document.getElementById('next-page').disabled = !next;
+        }
+
+        document.getElementById('prev-page').addEventListener('click', () => fetchPublicaciones(currentPage - 1));
+        document.getElementById('next-page').addEventListener('click', () => fetchPublicaciones(currentPage + 1));
+
+        fetchPublicaciones();
+    </script>
+</body>
+</html>
+
+<div class=""></div>

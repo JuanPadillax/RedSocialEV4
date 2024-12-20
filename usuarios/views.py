@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.contrib.auth import login
+from rest_framework import generics, permissions
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
 
 
 def crear_usuario(request):
@@ -58,3 +61,9 @@ def eliminar_usuario(request, id):
         usuario.delete()
         return redirect('listar_usuarios')
     return render(request, 'eliminar_usuario.html', {'usuario': usuario})
+
+
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAdminUser]
